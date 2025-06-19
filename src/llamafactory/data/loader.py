@@ -292,7 +292,7 @@ def get_dataset(
         if has_tokenized_data(data_args.tokenized_path):
             logger.warning_rank0("Loading dataset from disk will ignore other data arguments.")
             tokenized_data = load_from_disk(data_args.tokenized_path)
-            dataset_module = get_dataset_module(tokenized_data)
+            dataset_module = get_dataset_module(tokenized_data, val_size=data_args.val_size)
             if data_args.streaming:
                 dataset_module["train_dataset"] = dataset_module["train_dataset"].to_iterable_dataset()
 
@@ -330,4 +330,4 @@ def get_dataset(
                 logger.info_rank0(f"Tokenized dataset is saved at {data_args.tokenized_path}.")
                 logger.info_rank0(f"Please launch the training with `tokenized_path: {data_args.tokenized_path}`.")
 
-        return get_dataset_module(dataset_dict)
+        return get_dataset_module(dataset_dict, val_size=data_args.val_size)

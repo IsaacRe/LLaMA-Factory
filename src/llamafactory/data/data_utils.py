@@ -119,7 +119,10 @@ def split_dataset(
     return DatasetDict(dataset_dict)
 
 
-def get_dataset_module(dataset: Union["Dataset", "DatasetDict"]) -> "DatasetModule":
+def get_dataset_module(
+    dataset: Union["Dataset", "DatasetDict"],
+    val_size: int = 0
+) -> "DatasetModule":
     r"""
     Converts dataset or dataset dict to dataset module.
     """
@@ -140,6 +143,7 @@ def get_dataset_module(dataset: Union["Dataset", "DatasetDict"]) -> "DatasetModu
                 dataset_module["eval_dataset"] = eval_dataset
 
     else:  # single dataset
-        dataset_module["train_dataset"] = dataset
+        dataset_module["train_dataset"] = dataset.skip(val_size)
+        dataset_module["eval_dataset"] = dataset.take(val_size)
 
     return dataset_module

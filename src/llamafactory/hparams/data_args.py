@@ -24,7 +24,12 @@ class DataArguments:
     r"""
     Arguments pertaining to what data we are going to input our model for training and evaluation.
     """
-
+    val_size: Optional[int] = field(
+        default=0,
+        metadata={
+            "help": "Size of the validation set, should be an integer."
+        },
+    )
     template: Optional[str] = field(
         default=None,
         metadata={"help": "Which template to use for constructing prompts in training and inference."},
