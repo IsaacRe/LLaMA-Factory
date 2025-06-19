@@ -1,4 +1,17 @@
 {
+  "openthoughts3": {
+    "hf_hub_url": "open-thoughts/OpenThoughts2-1M",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "conversations"
+    },
+    "tags": {
+      "role_tag": "from",
+      "content_tag": "value",
+      "user_tag": "user",
+      "assistant_tag": "assistant"
+    }
+  },
   "identity": {
     "file_name": "identity.json"
   },

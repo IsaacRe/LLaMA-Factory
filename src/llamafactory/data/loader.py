@@ -130,7 +130,7 @@ def _load_single_dataset(
             name=data_name,
             data_dir=data_dir,
             data_files=data_files,
-            split=dataset_attr.split,
+            split=dataset_attr.split if (data_args.streaming or data_args.max_samples is None) else f"{dataset_attr.split}[:{data_args.max_samples}]",
             cache_dir=model_args.cache_dir,
             token=model_args.hf_hub_token,
             streaming=data_args.streaming,
