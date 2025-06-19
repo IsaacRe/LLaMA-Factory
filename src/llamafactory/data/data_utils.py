@@ -143,7 +143,10 @@ def get_dataset_module(
                 dataset_module["eval_dataset"] = eval_dataset
 
     else:  # single dataset
-        dataset_module["train_dataset"] = dataset.skip(val_size)
-        dataset_module["eval_dataset"] = dataset.take(val_size)
+        if isinstance(val_size, int):
+            dataset_module["train_dataset"] = dataset.skip(val_size)
+            dataset_module["eval_dataset"] = dataset.take(val_size)
+        else:
+            dataset_module["train_dataset"] = dataset
 
     return dataset_module
