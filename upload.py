@@ -32,7 +32,11 @@ else:
         print(f"\n--- Processing '{checkpoint_folder_name}' ---")
         print(f"Attempting to upload '{checkpoint_path}' to '{repo_id}' on branch '{branch_name}'...")
 
-        api.create_branch(repo_id=repo_id, branch=branch_name, repo_type="model", exist_ok=True)
+        try:
+            api.create_branch(repo_id=repo_id, branch=branch_name, repo_type="model", exist_ok=False)
+        except Exception as e:
+            print(f"Skipping {checkpoint_path} due to error in branch creation.")
+            continue
         api.upload_large_folder(
             folder_path=checkpoint_path,
             repo_id=repo_id,
